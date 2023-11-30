@@ -43,3 +43,48 @@ class BookListPage extends StatelessWidget {
     );
   }
 }
+class BookCard extends StatelessWidget {
+  final String bookName;
+  final String authorName;
+  final String rating;
+  final String coverImageUrl;
+  final String description;
+
+  const BookCard(
+      this.bookName,
+      this.authorName,
+      this.rating,
+      this.coverImageUrl,
+      this.description, {super.key}
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: Image.network(coverImageUrl, width: 50, height: 50),
+        title: Text(bookName),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(authorName),
+            Text('Rating: $rating'),
+          ],
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BookDetailsPage(
+                bookName,
+                coverImageUrl,
+                description,
+                authorName, // Pass the author name to BookDetailsPage
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
